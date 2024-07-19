@@ -7,12 +7,16 @@ const Logo = () => {
     const router = useRouter();
 
   return (
-    <Image
+    <div className="flex items-end tracking-tighter">
+      <Image
+    
     alt="Logo"
-    className="hidden md:block cursor-pointer"
-    height='100'
-    width='100'
+    className="md:block cursor-pointer mb-3 "
+    height='8'
+    width='50'
     src="/Images/logo.png"/>
+    {/* <h1 className="font-bold text-rose-600 font-sans  text-[40px] ml-[-5px] italic">Hotel</h1> */}
+    </div>
   )
 }
 
