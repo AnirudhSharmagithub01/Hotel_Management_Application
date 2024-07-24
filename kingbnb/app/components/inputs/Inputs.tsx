@@ -26,7 +26,7 @@ const Inputs: React.FC<InputsProps> = ({
     errors
 }) => {
     return (
-        <div className="w-full relative">
+        <div className="w-full relative ">
             {
                 formatPrice && (
                     <BiDollar size={24} className=" text-neutral-700 absolute top-5 left-2" />
@@ -40,8 +40,8 @@ const Inputs: React.FC<InputsProps> = ({
                 placeholder=" "
                 className={`
                 w-full peer
-                p-4
-                pt-6
+                p-3
+                pt-4
                 font-light
                 bg-white
                 border-2

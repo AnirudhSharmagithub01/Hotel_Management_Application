@@ -83,6 +83,7 @@ const Models: React.FC<ModelProps> = ({
                     outline-none
                     focus:outline-none
                     bg-neutral-800/70
+                    
                     ">
                 <div
                     className="
@@ -96,11 +97,13 @@ const Models: React.FC<ModelProps> = ({
                              h-full
                              lg:h-auto
                              md:h-auto
+                             
                             ">
 
                     {/* Content */}
                     <div
                         className={`
+                                    
                                     translate
                                     duration-300
                                     h-full
@@ -112,22 +115,22 @@ const Models: React.FC<ModelProps> = ({
                             {/* Header */}
                             <div
                                 className="
-                                        flex items-center p-6 rounded-t justify-center relative border-b-[1px]"
+                                        flex items-center p-3 rounded-t justify-center relative border-b-[1px]"
                             >
                                 <button
                                     onClick={handleClose}
-                                    className="p-1 boarder-0 hover:opacity-70 transition absolute right-9">
+                                    className="p-1 boarder-0 hover:opacity-70 transition absolute right-6">
                                     <IoMdClose size={18} />
                                 </button>
-                                <div className="text-lg font-medium">
+                                <div className="text-lg font-bold">
                                     {title}
                                 </div>
 
                             </div>
-                            <div className="relative p-6 flex-auto">
+                            <div className="relative p-4 flex-auto">
                                 {body}
                             </div>
-                            <div className="flex flex-col gap-2 p-6">
+                            <div className="flex flex-col gap-2 p-4">
                                 <div className="flex flex-row items-center gap-4 w-full">
                                     {
                                         secondaryAction && secondaryActionLabel && (
@@ -136,6 +139,7 @@ const Models: React.FC<ModelProps> = ({
                                     }
                                     <Button disabled={disabled} label={actionLabel} onclick={handleSubmit} />
                                 </div>
+                                {footer}
                             </div>
                         </div>
                     </div>

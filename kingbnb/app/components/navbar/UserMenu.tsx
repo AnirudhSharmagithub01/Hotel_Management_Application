@@ -38,7 +38,7 @@ const UserMenu = () => {
             {
                 isOpen && (
                     <div>
-                        <div className="w-10 h-14 bg-neutral-100 absolute right-3 top-12 rotate-45 rounded-md hover:bg-rose-400"></div>
+                        <div className="w-10 h-14 bg-neutral-100 absolute right-3 top-12 rotate-45 rounded-md"></div>
                         <div
                             className="absolute rounded-xl shadow-md w-[45vw] md:w-3/4 bg-neutral-100 overflow-hidden -right-0 top-14 text-sm"
                         >
