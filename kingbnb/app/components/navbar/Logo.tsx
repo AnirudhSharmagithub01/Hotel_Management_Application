@@ -12,7 +12,7 @@ const Logo = () => {
     
     alt="Logo"
     className="md:block cursor-pointer mb-3 "
-    height='8'
+    height='10'
     width='50'
     src="/Images/logo.png"/>
     {/* <h1 className="font-bold text-rose-600 font-sans  text-[40px] ml-[-5px] italic">Hotel</h1> */}

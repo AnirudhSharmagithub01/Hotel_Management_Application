@@ -1,37 +1,34 @@
 'use client';
 
-import axios from "axios";
-// import { AiFillGithub, AiOutlineEye } from "react-icons/ai";
-import { FcGoogle } from "react-icons/fc";
-import { FaGithub,FaFacebook } from "react-icons/fa6";
-import { useCallback, useState } from "react";
+import { signIn } from 'next-auth/react';
+import useLoginModal from '@/app/Hooks/userLoginModal';
 import {
     FieldValues,
     SubmitHandler,
     useForm,
 } from 'react-hook-form';
-
-import useRegisterModal from "@/app/Hooks/useRegisterModal";
 import Models from "./Models";
-import Heading from "../Heading";
-import Inputs from "../inputs/Inputs";
-import toast from "react-hot-toast";
-import FooterButton from "./FooterButton";
-import LoginModal from "./LoginModal";
-import useLoginModal from "@/app/Hooks/userLoginModal";
-// import Button from "../Button";
+import { useState } from 'react';
+import { FcGoogle } from "react-icons/fc";
+import { FaGithub, FaFacebook } from "react-icons/fa6";
+import toast from 'react-hot-toast';
+import axios from 'axios';
+import Heading from '../Heading';
+import Inputs from '../inputs/Inputs';
+import FooterButton from './FooterButton';
 
-const RegisterModal = () => {
+const LoginModal = () => {
 
-    const registerModal = useRegisterModal();
-    const loginModal = useLoginModal();
     const [isLoading, setIsLoading] = useState(false);
-    // const [showPassword, setShowPassword] = useState(false);
+    const loginModal = useLoginModal();
+
+
 
     const { register, handleSubmit, formState: {
         errors,
     } } = useForm<FieldValues>({
         defaultValues: {
+            name: '',
             email: '',
             password: '',
         }
@@ -39,39 +36,30 @@ const RegisterModal = () => {
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         setIsLoading(true);
-        axios.post('/api/register', data)
-            .then(() => {
-                registerModal.onClose();
-            }).catch((error) => {
-                toast.error('Something went wrong.');
-            }).finally(() => {
-                setIsLoading(false);
-            })
+
+        signIn('credentials',{
+            ...data,
+            redirect:false,
+        })
     }
 
-    // const password = (
-    //     <div>            
-    //     </div>
-    // )
-
-    
 
     const bodyContent = (
         <div className="flex flex-col gap-2 -mt-4">
-            <Heading title="Welcome to KingHotel👑"
-                subtitle="Create an account!"
+            <Heading title="Welcome Back👑"
+                subtitle="Login to Your Account"
                 center
             />
             {/* <input type="text" /> */}
-            <Inputs
-                id="Name"
-                label="Name"
-                type="text"
-                disabled={isLoading}
-                register={register}
-                required
-                errors={errors}
-            />
+            {/* <Inputs
+            id="Name"
+            label="Name"
+            type="text"
+            disabled={isLoading}
+            register={register}
+            required
+            errors={errors}
+        /> */}
             <Inputs
                 id="email"
                 label="Email"
@@ -95,7 +83,7 @@ const RegisterModal = () => {
 
     const footerContent = (
         <div className="flex flex-col justify-center items-center gap-4 mt-2">
-            <hr className=""/>
+            <hr className="" />
             <div className="flex items-center justify-center w-full gap-6">
                 <FooterButton
                     icon={FcGoogle}
@@ -116,11 +104,11 @@ const RegisterModal = () => {
             <div className="text-neutral-500 text-center mt-2 font-light">
                 <div className="justify-center flex flex-row items-center gap-3">
                     <div>
-                        Already have an account?
+                        Don't having an Account?
                     </div>
                     <div className="text-neutral-800 cursor-pointer hover:underline"
-                    onClick={loginModal.onOpen}>
-                        LogIn
+                        onClick={loginModal.onClose}>
+                        SignUp
                     </div>
                 </div>
             </div>
@@ -128,10 +116,10 @@ const RegisterModal = () => {
     )
     return (
         <Models disabled={isLoading}
-            isOpen={registerModal.isOpen}
-            title="Register"
-            actionLabel="Signup"
-            onClose={registerModal.onClose}
+            isOpen={loginModal.isOpen}
+            title="Log In"
+            actionLabel="Login"
+            onClose={loginModal.onClose}
             onSubmit={handleSubmit(onSubmit)}
             body={bodyContent}
             footer={footerContent}
@@ -139,4 +127,4 @@ const RegisterModal = () => {
     )
 }
 
-export default RegisterModal
+export default LoginModal
