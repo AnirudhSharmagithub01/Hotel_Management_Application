@@ -16,13 +16,13 @@ import axios from 'axios';
 import Heading from '../Heading';
 import Inputs from '../inputs/Inputs';
 import FooterButton from './FooterButton';
+import { useRouter } from 'next/navigation';
 
 const LoginModal = () => {
 
     const [isLoading, setIsLoading] = useState(false);
     const loginModal = useLoginModal();
-
-
+    const router = useRouter();
 
     const { register, handleSubmit, formState: {
         errors,
@@ -40,6 +40,19 @@ const LoginModal = () => {
         signIn('credentials',{
             ...data,
             redirect:false,
+        })
+        .then((callback) => {
+            setIsLoading(false);
+
+            if(callback?.ok){
+                toast.success('Login Successful');
+                router.refresh();
+                loginModal.onClose();
+            }
+
+            if(callback?.error){
+                toast.error(callback.error);
+            }
         })
     }
 
