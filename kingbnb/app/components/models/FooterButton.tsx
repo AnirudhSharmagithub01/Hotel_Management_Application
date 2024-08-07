@@ -17,7 +17,9 @@ const FooterButton: React.FC<FooterButtonProps> = ({
     disabled,
 }) => {
     return (
-        <div
+        <button
+        onClick={onClick}
+        disabled={disabled}
         className="flex flex-col items-center justify-center cursor-pointer hover:underline"
         >
             <div>
@@ -26,7 +28,7 @@ const FooterButton: React.FC<FooterButtonProps> = ({
             </div>
             <span>{lable}</span>
 
-        </div>
+        </button>
     )
 }
 

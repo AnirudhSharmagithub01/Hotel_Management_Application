@@ -2,13 +2,19 @@
 
 import Image from 'next/image';
 
-const Avatar = () => {
+interface AvatarProps {
+  src: string | null | undefined;
+}
+
+const Avatar:React.FC<AvatarProps> = ({
+  src,
+}) => {
   return (
     <div>
         <Image
         alt='Avatar'
         className='hidden md:block cursor-pointer rounded-full'
-        src={"/Images/placeholder.png"}
+        src={src || "/Images/placeholder.png"}
         height={'30'}
         width={'30'}
         />

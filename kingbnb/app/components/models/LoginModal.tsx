@@ -8,7 +8,7 @@ import {
     useForm,
 } from 'react-hook-form';
 import Models from "./Models";
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub, FaFacebook } from "react-icons/fa6";
 import toast from 'react-hot-toast';
@@ -17,18 +17,19 @@ import Heading from '../Heading';
 import Inputs from '../inputs/Inputs';
 import FooterButton from './FooterButton';
 import { useRouter } from 'next/navigation';
+import useRegisterModal from '@/app/Hooks/useRegisterModal';
 
 const LoginModal = () => {
 
     const [isLoading, setIsLoading] = useState(false);
     const loginModal = useLoginModal();
+    const registerModal = useRegisterModal();
     const router = useRouter();
 
     const { register, handleSubmit, formState: {
         errors,
     } } = useForm<FieldValues>({
         defaultValues: {
-            name: '',
             email: '',
             password: '',
         }
@@ -56,6 +57,10 @@ const LoginModal = () => {
         })
     }
 
+    const toggle = useCallback(() => {
+        loginModal.onClose();
+        registerModal.onOpen();        
+    },[loginModal,registerModal]);
 
     const bodyContent = (
         <div className="flex flex-col gap-2 -mt-4">
@@ -100,12 +105,12 @@ const LoginModal = () => {
             <div className="flex items-center justify-center w-full gap-6">
                 <FooterButton
                     icon={FcGoogle}
-                    onClick={() => { }}
+                    onClick={() => signIn('google')}
                     lable="Google"
                 />
                 <FooterButton
                     icon={FaGithub}
-                    onClick={() => { }}
+                    onClick={() => signIn('github')}
                     lable="GitHub"
                 />
                 <FooterButton
@@ -120,8 +125,8 @@ const LoginModal = () => {
                         Don't having an Account?
                     </div>
                     <div className="text-neutral-800 cursor-pointer hover:underline"
-                        onClick={loginModal.onClose}>
-                        SignUp
+                        onClick={toggle}>
+                        Create an Account
                     </div>
                 </div>
             </div>

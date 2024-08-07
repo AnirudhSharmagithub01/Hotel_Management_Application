@@ -6,23 +6,43 @@ import { useCallback, useState } from "react";
 import MenuItems from './MenuItems';
 import useRegisterModal from "@/app/Hooks/useRegisterModal";
 import useLoginModal from "@/app/Hooks/userLoginModal";
+import { signOut } from "next-auth/react";
+import { SafeUser } from "@/app/types";
+import useRentModal from "@/app/Hooks/useRentModal";
 
-const UserMenu = () => {
+interface UserMenuProps {
+    currentUser: SafeUser | null;
+}
+
+const UserMenu: React.FC<UserMenuProps> = ({
+    currentUser
+}) => {
     const registerModal = useRegisterModal();
     const loginModal = useLoginModal();
+    const rentModal = useRentModal();
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleOpen = useCallback(() => {
         setIsOpen((value) => !value);
     }, []);
 
+    const onRent = useCallback(() => {
+        if(!currentUser){
+            return loginModal.onOpen();
+        }
+
+        // on rent
+
+        rentModal.onOpen();
+
+    },[currentUser,loginModal,rentModal]);
     return (
         <div
             className="relative"
         >
             <div className="flex flex-row items-center gap-3">
                 <div
-                    onClick={() => { }}
+                    onClick={onRent}
                     className="hidden md:block text-sm font-semibold py-3 px-3 rounded-full hover:bg-neutral-200 transition cursor-pointer"
                 >
                     Your Home
@@ -33,7 +53,7 @@ const UserMenu = () => {
                 >
                     <AiOutlineMenu />
                     <div className="hidden md:block">
-                        <Avatar />
+                        <Avatar src={currentUser?.image} />
                     </div>
                 </div>
             </div>
@@ -45,20 +65,43 @@ const UserMenu = () => {
                             className="absolute rounded-xl shadow-md w-[45vw] md:w-3/4 bg-neutral-100 overflow-hidden -right-0 top-14 text-sm"
                         >
                             <div className="flex flex-col cursor-pointer">
-                                <>
-                                    <MenuItems onClick={loginModal.onOpen}
-                                        label={"Login"} />
+                                {
+                                    currentUser ? (
 
-                                    <MenuItems onClick={registerModal.onOpen}
-                                        label={"Sign Up"} />
-                                </>
+                                        <>
+                                            <MenuItems onClick={() => { }}
+                                                label={"My trips"} />
+
+                                            <MenuItems onClick={() => { }}
+                                                label={"My favorites"} />
+                                            <MenuItems onClick={() => { }}
+                                                label={"My reservations"} />
+                                            <MenuItems onClick={() => { }}
+                                                label={"My properties"} />
+                                            <MenuItems onClick={rentModal.onOpen}
+                                                label={"Kingbnb my home"} />
+                                                <hr />
+                                            <MenuItems onClick={() => signOut()}
+                                                label={"Logout"} />
+                                        </>
+                                    ) :
+                                        (
+                                            <>
+                                                <MenuItems onClick={loginModal.onOpen}
+                                                    label={"Login"} />
+
+                                                <MenuItems onClick={registerModal.onOpen}
+                                                    label={"Sign Up"} />
+                                            </>
+                                        )
+                                }
                             </div>
                         </div>
                     </div>
 
                 )
             }
-        </div>
+        </div >
     )
 }
 

@@ -19,6 +19,7 @@ import toast from "react-hot-toast";
 import FooterButton from "./FooterButton";
 import LoginModal from "./LoginModal";
 import useLoginModal from "@/app/Hooks/userLoginModal";
+import { signIn } from "next-auth/react";
 // import Button from "../Button";
 
 const RegisterModal = () => {
@@ -41,7 +42,7 @@ const RegisterModal = () => {
         setIsLoading(true);
         axios.post('/api/register', data)
             .then(() => {
-                registerModal.onClose();
+                registerModal.onClose(); 
             }).catch((error) => {
                 toast.error('Something went wrong.');
             }).finally(() => {
@@ -54,7 +55,10 @@ const RegisterModal = () => {
     //     </div>
     // )
 
-    
+    const toggle = useCallback(() =>{
+        registerModal.onClose();
+        loginModal.onOpen();
+    },[registerModal,loginModal]);
 
     const bodyContent = (
         <div className="flex flex-col gap-2 -mt-4">
@@ -99,12 +103,12 @@ const RegisterModal = () => {
             <div className="flex items-center justify-center w-full gap-6">
                 <FooterButton
                     icon={FcGoogle}
-                    onClick={() => { }}
+                    onClick={() => signIn('google')}
                     lable="Google"
                 />
                 <FooterButton
                     icon={FaGithub}
-                    onClick={() => { }}
+                    onClick={() => signIn('github')}
                     lable="GitHub"
                 />
                 <FooterButton
@@ -119,7 +123,7 @@ const RegisterModal = () => {
                         Already have an account?
                     </div>
                     <div className="text-neutral-800 cursor-pointer hover:underline"
-                    onClick={loginModal.onOpen}>
+                    onClick={toggle}>
                         LogIn
                     </div>
                 </div>
