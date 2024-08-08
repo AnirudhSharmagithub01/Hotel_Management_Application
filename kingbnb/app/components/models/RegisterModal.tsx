@@ -62,7 +62,7 @@ const RegisterModal = () => {
 
     const bodyContent = (
         <div className="flex flex-col gap-2 -mt-4">
-            <Heading title="Welcome to KingHotel👑"
+            <Heading title="Welcome to King's Hotel👑"
                 subtitle="Create an account!"
                 center
             />

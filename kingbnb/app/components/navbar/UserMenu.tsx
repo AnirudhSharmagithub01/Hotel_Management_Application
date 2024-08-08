@@ -45,7 +45,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
                     onClick={onRent}
                     className="hidden md:block text-sm font-semibold py-3 px-3 rounded-full hover:bg-neutral-200 transition cursor-pointer"
                 >
-                    Your Home
+                    {`${currentUser?.name} Your Home`}
                 </div>
                 <div
                     onClick={toggleOpen}
