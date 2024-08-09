@@ -48,7 +48,7 @@ const RentModal = () => {
             location: null,
             guestCount: 1,
             roomCount: 1,
-            bathroomCount: 1,
+            bathroomCount: 3,
             imageSrc: '',
             price: 1,
             title: '',

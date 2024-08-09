@@ -115,7 +115,7 @@ const LoginModal = () => {
                 />
                 <FooterButton
                     icon={FaFacebook}
-                    onClick={() => { }}
+                    onClick={() => {toast.error("This Service is in the production You may use another One") }}
                     lable={'FaceBook'}
                 />
             </div>
